@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="CamperNews">
 <head>
 <meta charset="UTF-8">
 <title>Camper News</title>
@@ -7,14 +7,31 @@
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.css">
 <link href='style.css' rel='stylesheet' type='text/css'>
 </head>
-<body>
+<body ng-controller="AppCtrl">
 
-
-
+<div ng-controller="AppCtrl as appCtrl">
+  <md-content layout-padding>
+    <md-grid-list
+        md-cols-sm="1" md-cols-md="3" md-cols-lg="5" md-cols-gt-lg="6"
+        md-row-height-gt-md="1:1" md-row-height="1:1"
+        md-gutter-gt-md="16px" md-gutter-gt-sm="16px" md-gutter="16px">
+		<md-grid-tile class="news-tile"
+			ng-repeat="tile in appCtrl.Tiles"
+			ng-style="{'background': 'url('+tile.poster+') no-repeat center / cover'}"
+			md-colspan-gt-sm="{{tile.colspan}}"
+			md-rowspan-gt-sm="{{tile.rowspan}}">
+			<a ng-href="{{tile.link}}" target="_blank"><md-grid-tile-header><h3 class="news-head">{{tile.title}}</h3></md-grid-tile-header></a>
+			<p ng-show="tile.meta" class="metaDescription">{{tile.meta}}</p>
+			<md-grid-tile-footer><div><a class="md-button"><ng-pluralize count="tile.upvotes" when="{'0': 'No votes', 'one': '1 vote', 'other': '{} votes'}"></ng-pluralize></a></div><div><a class="md-button" ng-href="{{tile.storylink}}" target="_blank">Discuss</a></div></md-grid-tile-footer>
+		</md-grid-tile>
+    </md-grid-list>
+  </md-content>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-animate.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-aria.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.0/angular-material.min.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
